@@ -21,12 +21,21 @@
     <ClCompile Include="math\matrix\src\matrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="test\matrix\src\test_matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\myMath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="math\matrix\api\matrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test\matrix\api\test_matrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\myMath_Test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

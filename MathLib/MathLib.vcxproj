@@ -141,10 +141,13 @@
   <ItemGroup>
     <ClCompile Include="math\matrix\src\matrix.cpp" />
     <ClCompile Include="src.cpp" />
+    <ClCompile Include="test\matrix\src\test_matrix.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\myMath.h" />
+    <ClInclude Include="includes\myMath_Test.h" />
     <ClInclude Include="math\matrix\api\matrix.h" />
+    <ClInclude Include="test\matrix\api\test_matrix.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
