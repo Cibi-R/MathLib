@@ -2,7 +2,7 @@
 #include <myMath.h>
 
 
-void Matrix::Allocate_Mem(uint16_t row, uint16_t col)
+void MyMath::Matrix::Allocate_Mem(uint16_t row, uint16_t col)
 {
 	MatrixBase = new double* [row];
 
@@ -12,7 +12,7 @@ void Matrix::Allocate_Mem(uint16_t row, uint16_t col)
 	}
 }
 
-void Matrix::Delete(void)
+void MyMath::Matrix::Delete(void)
 {
 	if (MatrixBase != NULL)
 	{
@@ -30,12 +30,12 @@ void Matrix::Delete(void)
 	}
 }
 
-Matrix::Matrix() : Row(0), Col(0), MatrixBase(NULL)
+MyMath::Matrix::Matrix() : Row(0), Col(0), MatrixBase(NULL)
 {
 
 }
 
-Matrix::Matrix(uint16_t row, uint16_t col) : MatrixBase(NULL)
+MyMath::Matrix::Matrix(uint16_t row, uint16_t col) : MatrixBase(NULL)
 {
 	if ((0 < row) && (0 < col))
 	{
@@ -46,12 +46,12 @@ Matrix::Matrix(uint16_t row, uint16_t col) : MatrixBase(NULL)
 	}
 }
 
-Matrix::~Matrix()
+MyMath::Matrix::~Matrix()
 {
 	/* DO NOTHING */
 }
 
-void Matrix::Create(uint16_t row, uint16_t col)
+void MyMath::Matrix::Create(uint16_t row, uint16_t col)
 {
 	if ((0 < row) && (0 < col))
 	{
@@ -67,17 +67,17 @@ void Matrix::Create(uint16_t row, uint16_t col)
 	}
 }
 
-uint8_t Matrix::Is_Empty(void)
+uint8_t MyMath::Matrix::Is_Empty(void)
 {
 	return MatrixBase == NULL;
 }
 
-double* Matrix::operator[] (uint16_t index)
+double* MyMath::Matrix::operator[] (uint16_t index)
 {
 	return MatrixBase[index];
 }
 
-Matrix& Matrix::operator = (const Matrix& rhs)
+MyMath::Matrix& MyMath::Matrix::operator = (const Matrix& rhs)
 {
 	if (this->MatrixBase != NULL)
 	{
@@ -102,29 +102,19 @@ Matrix& Matrix::operator = (const Matrix& rhs)
 	return *this;
 }
 
-std::ostream& operator << (std::ostream& out, Matrix &obj)
+std::ostream& MyMath::operator<<(std::ostream& out, MyMath::Matrix& obj)
 {
-	uint16_t i, j;
-
-	for (i = 0; i < obj.Row; i++)
-	{
-		for (j = 0; j < obj.Col; j++)
-		{
-			std::cout << obj[i][j] << " ";
-		}
-		out << std::endl;
-	}
-
 	return out;
 }
 
-Matrix operator + (const Matrix& l, const Matrix& r)
+
+MyMath::Matrix MyMath::operator + (const MyMath::Matrix& l, const MyMath::Matrix& r)
 {
-	Matrix temp;
+	MyMath::Matrix temp;
 
 	/*< Should be removed */
-	Matrix lhs = l;
-	Matrix rhs = r;
+	MyMath::Matrix lhs = l;
+	MyMath::Matrix rhs = r;
 
 	if (lhs.MatrixBase == NULL)
 	{
@@ -160,13 +150,13 @@ Matrix operator + (const Matrix& l, const Matrix& r)
 	return temp;
 }
 
-Matrix operator - (const Matrix& l, const Matrix& r)
+MyMath::Matrix MyMath::operator - (const MyMath::Matrix& l, const MyMath::Matrix& r)
 {
-	Matrix temp;
+	MyMath::Matrix temp;
 
 	/*< Should be removed */
-	Matrix lhs = l;
-	Matrix rhs = r;
+	MyMath::Matrix lhs = l;
+	MyMath::Matrix rhs = r;
 
 	if (lhs.MatrixBase == NULL)
 	{
@@ -202,13 +192,13 @@ Matrix operator - (const Matrix& l, const Matrix& r)
 	return temp;
 }
 
-Matrix operator * (const Matrix& r,const Matrix& l)
+MyMath::Matrix MyMath::operator * (const MyMath::Matrix& l,const MyMath::Matrix& r)
 {
-	Matrix temp;
+	MyMath::Matrix temp;
 
 	/*< Should be removed */
-	Matrix lhs = l;
-	Matrix rhs = r;
+	MyMath::Matrix lhs = l;
+	MyMath::Matrix rhs = r;
 
 	if (lhs.MatrixBase == NULL)
 	{
@@ -222,17 +212,17 @@ Matrix operator * (const Matrix& r,const Matrix& l)
 		rhs = lhs;
 	}
 
-	else if (rhs.Col == lhs.Row)
+	else if (lhs.Col == rhs.Row)
 	{
 		double Val = 0.00;
 
-		temp.Create(rhs.Row, lhs.Col);
+		temp.Create(lhs.Row, rhs.Col);
 
 		for (uint16_t i = 0; i < lhs.Row; i++)
 		{
 			for (uint16_t j = 0; j < rhs.Col; j++)
 			{
-				for (uint16_t k = 0; k < lhs.Col; k++)
+				for (uint16_t k = 0; k < lhs.Col; k++) //lhs.col is equal to rhs.row
 				{
 					Val += (lhs[i][k] * rhs[k][j]);
 				}
@@ -252,7 +242,7 @@ Matrix operator * (const Matrix& r,const Matrix& l)
 	return temp;
 }
 
-Matrix operator * (double Val, const Matrix& lhs)
+MyMath::Matrix MyMath::operator * (double Val, const MyMath::Matrix& lhs)
 {
 	Matrix Obj = lhs;
 
