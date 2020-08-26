@@ -1,5 +1,5 @@
 #include <iostream>
-#include <myMath.h>
+#include "../api/matrix.h"
 
 
 void MyMath::Matrix::Allocate_Mem(uint16_t row, uint16_t col)
