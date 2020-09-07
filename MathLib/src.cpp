@@ -4,10 +4,11 @@
 
 int main(void)
 {
+	Matrix_VectorAssignment();
 
-	Test_Vector_Function();
+	//Test_Vector_Function();
 
 	//Test_Operator_Equal();
 
-	Matrix_Multiplication();
+	//Matrix_Multiplication();
 }

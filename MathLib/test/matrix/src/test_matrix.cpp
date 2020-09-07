@@ -1,5 +1,23 @@
 #include <iostream>
+#include <vector>
 #include <myMath.h>
+
+
+void Matrix_VectorAssignment(void)
+{
+	std::vector<std::vector<double>> vector1 = {
+		{1,2,3},
+		{4,5,6},
+		{7,8,9}
+	};
+
+	MyMath::Matrix temp1;
+
+	temp1 = vector1;
+
+	std::cout << temp1 << std::endl;
+}
+
 
 void Matrix_Multiplication(void)
 {

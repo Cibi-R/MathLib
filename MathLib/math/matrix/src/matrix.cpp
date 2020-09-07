@@ -1,15 +1,16 @@
 #include <iostream>
+#include <vector>
 #include "../api/matrix.h"
 
 
-void MyMath::Matrix::Allocate_Mem(uint16_t row, uint16_t col)
+void MyMath::Matrix::Allocate_Mem(void)
 {
-	MatrixBase = new double* [row];
+	MatrixBase = new double* [Row];
 
-	for (uint16_t r = 0; r < row; r++)
+	for (uint16_t r = 0; r < Row; r++)
 	{
-		MatrixBase[r] = new double[col];
-	}
+		MatrixBase[r] = new double[Col];
+	}											
 }
 
 void MyMath::Matrix::Delete(void)
@@ -42,7 +43,7 @@ MyMath::Matrix::Matrix(uint16_t row, uint16_t col) : MatrixBase(NULL)
 		Row = row;
 		Col = col;
 
-		Allocate_Mem(row, col);
+		Allocate_Mem();
 	}
 }
 
@@ -60,16 +61,80 @@ void MyMath::Matrix::Create(uint16_t row, uint16_t col)
 			Delete();
 		}
 
-		this->Row = row;
-		this->Col = col;
+		Row = row;
+		Col = col;
 
-		Allocate_Mem(row, col);
+		Allocate_Mem();
 	}
+}
+
+uint8_t MyMath::Matrix::ResetTo(double val)
+{
+	uint8_t RetVal = 0;
+
+	if (MatrixBase != NULL)
+	{
+		for (uint16_t i = 0; i < Row; i++)
+		{
+			for (uint16_t j = 0; j < Col; j++)
+			{
+				MatrixBase[i][j] = val;
+			}
+		}
+
+		RetVal = 1;
+	}
+
+	return RetVal;
 }
 
 uint8_t MyMath::Matrix::Is_Empty(void)
 {
 	return MatrixBase == NULL;
+}
+
+uint8_t MyMath::Matrix::Sigmoid(MyMath::Matrix& mat)
+{
+	uint8_t RetVal = 1;
+
+	if (mat.MatrixBase != NULL)
+	{
+		mat.Delete();
+	}
+
+	mat = *this;
+
+	if ((0 < mat.Col) && (0 < mat.Row))
+	{
+		for (uint16_t i = 0; i < mat.Row; i++)
+		{
+			for (uint16_t j = 0; j < mat.Col; j++)
+			{
+				mat[i][j] = ((1) / (1 + exp(-mat[i][j])));
+			}
+		}
+	}
+
+	else
+	{
+		RetVal = 0;
+	}
+
+	return RetVal;
+}
+
+void MyMath::Matrix::Sigmoid(void)
+{
+	if (this->MatrixBase != NULL)
+	{
+		for (uint16_t i = 0; i < this->Row; i++)
+		{
+			for (uint16_t j = 0; j < this->Col; j++)
+			{
+				(*this)[i][j] = ((1) / (1 + exp((*this)[i][j])));
+			}
+		}
+	}
 }
 
 double* MyMath::Matrix::operator[] (uint16_t index)
@@ -79,19 +144,17 @@ double* MyMath::Matrix::operator[] (uint16_t index)
 
 MyMath::Matrix& MyMath::Matrix::operator = (const Matrix& rhs)
 {
-	if (this->MatrixBase != NULL)
+	if (MatrixBase != NULL)
 	{
 		Delete();
 	}
 
-	this->Row = rhs.Row;
-	this->Col = rhs.Col;
+	Row = rhs.Row;
+	Col = rhs.Col;
 
-	//std::cout << "Base Address : " << rhs.MatrixBase << std::endl;
-
-	if ((0 < this->Row) && (0 < this->Col))
+	if ((0 < Row) && (0 < Col))
 	{
-		Allocate_Mem(this->Row, this->Col);
+		Allocate_Mem();
 
 		for (uint16_t i = 0; i < this->Row; i++)
 		{
@@ -102,8 +165,47 @@ MyMath::Matrix& MyMath::Matrix::operator = (const Matrix& rhs)
 	return *this;
 }
 
+MyMath::Matrix& MyMath::Matrix::operator = (const std::vector<std::vector<double>>& obj)
+{
+	if (MatrixBase != NULL)
+	{
+		Delete();
+	}
+
+	if (!obj.empty())
+	{
+		Row = obj.size();
+		Col = obj[0].size();
+
+		Allocate_Mem();
+
+		for (uint16_t i = 0; i < Row; i++)
+		{
+			for (uint16_t j = 0; j < Col; j++)
+			{
+				(*this)[i][j] = obj[i][j];
+			}
+		}
+	}
+	
+	return *this;
+}
+
+
 std::ostream& MyMath::operator<<(std::ostream& out, MyMath::Matrix& obj)
 {
+	if (obj.MatrixBase != NULL)
+	{
+		for (uint16_t i = 0; i < obj.Row; i++)
+		{
+			for (uint16_t j = 0; j < obj.Col; j++)
+			{
+				std::cout << obj[i][j] << " ";
+			}
+			std::cout << std::endl;
+		}
+	}
+
 	return out;
 }
 
