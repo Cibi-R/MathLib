@@ -35,6 +35,7 @@ namespace MyMath
 		friend Matrix operator - (const MyMath::Matrix& l, const MyMath::Matrix& r);
 		friend Matrix operator * (const MyMath::Matrix& l, const MyMath::Matrix& r);
 		friend Matrix operator * (double Val, const MyMath::Matrix& lhs);
+		friend Matrix operator * (const Matrix& obj, double rhs);
 	};
 }
 

@@ -1,0 +1,4 @@
+
+Operator overloaded function inside namespace:
+1. Refer: Argument Dependent Lookup
+2. https://stackoverflow.com/questions/3891402/operator-overloading-and-namespaces

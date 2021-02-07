@@ -21,19 +21,19 @@ void Matrix_VectorAssignment(void)
 
 void Matrix_Multiplication(void)
 {
-	//MyMath::Matrix m1(2, 3);
-	//m1[0][0] = 1; m1[0][1] = 2; m1[0][2] = 3;
-	//m1[1][0] = 4; m1[1][1] = 5; m1[1][2] = 6;
+	MyMath::Matrix m1(2, 3);
+	m1[0][0] = 1; m1[0][1] = 2; m1[0][2] = 3;
+	m1[1][0] = 4; m1[1][1] = 5; m1[1][2] = 6;
 
-	//MyMath::Matrix m2(3, 2);
-	//m2[0][0] = 10; m2[0][1] = 11;
-	//m2[1][0] = 20; m2[1][1] = 21;
-	//m2[2][0] = 30; m2[2][1] = 31;
+	MyMath::Matrix m2(3, 2);
+	m2[0][0] = 10; m2[0][1] = 11;
+	m2[1][0] = 20; m2[1][1] = 21;
+	m2[2][0] = 30; m2[2][1] = 31;
 
-	//MyMath::Matrix m3 = m1 * m2;
+	MyMath::Matrix m3 = m1 * m2;
 
-	//std::cout << m3 << std::endl;
-
+	std::cout << m3 << std::endl;
+#if 0
 	MyMath::Matrix m1(2, 3);
 	m1[0][0] = 2; m1[0][1] = 1; m1[0][2] = 4;
 	m1[1][0] = 0; m1[1][1] = 1; m1[1][2] = 1;
@@ -46,6 +46,7 @@ void Matrix_Multiplication(void)
 	MyMath::Matrix m3 = m1 * m2;
 
 	std::cout << m3 << std::endl;
+#endif
 }
 
 
@@ -55,9 +56,9 @@ void Test_Operator_Equal(void)
 	MyMath::Matrix m2(2, 1); m2[0][0] = 4;  m2[1][0] = -1;
 	MyMath::Matrix m3;
 
-	m3 = m1 = m2 = m1;  // Chain operation
+	m3 = m2 = m1;  // Chain operation
 
-	m3 = ((m1 + m2) + (m1 + m2));
+	//m3 = ((m1 + m2) + (m1 + m2));
 
 	std::cout << m3 << std::endl;
 }
